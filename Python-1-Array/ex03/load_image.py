@@ -16,26 +16,3 @@ def ft_load(path: str) -> array:
     except Exception as e:
         print("Error: ", e)
         return None
-
-def main():
-    # Test subject
-    print(ft_load("landscape.jpg"))
-    print()
-
-    # JPEG image
-    print(ft_load("animal.jpeg"))
-    print()
-
-    # Wrong type of image
-    print(ft_load("animal.j"))
-    print()
-
-    # Image doesn't exist
-    print(ft_load("test.jpeg"))
-    print()
-
-    # Wrong type of input
-    print(ft_load(1))
-
-if __name__ == "__main__":
-    main()
