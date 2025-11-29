@@ -10,7 +10,8 @@ def NULL_not_found(object: any) -> int:
     elif isinstance(object, str) and not object:
         display = f"Empty: {type(object)}"
     else:
-        display = "Type not Found"
+        print("Type not Found")
+        return 1
         
     print(display)
-    return 1
+    return 0
