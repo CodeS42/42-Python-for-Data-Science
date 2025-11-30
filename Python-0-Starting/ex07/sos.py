@@ -43,13 +43,32 @@ NESTED_MORSE = {
 
 
 def wrong_character(S):
+    """
+    Check if each character in the string is a letter, a number, or a space.
+
+    Args:
+        S: the string to analyze.
+
+    Returns:
+        True: if the character is forbidden.
+        False: if all the characters are allowed.
+    """
     for c in S:
         if not c.isalpha() and not c.isdigit() and not c.isspace():
             return True
-    False
+    return False
 
 
 def convert_string(S):
+    """
+    Convert a string to Morse code.
+
+    Args:
+        S: the string to convert.
+
+    Returns
+        new_string: the string after conversion.
+    """
     new_string = ""
     S = S.upper()
 
@@ -61,6 +80,18 @@ def convert_string(S):
 
 
 def main():
+    """
+    Main function to handle input validation and convert a string to
+    Morse code.
+
+    Behavior:
+        - Expects one command-line argument (the string to convert).
+        - Raises AssertionError if:
+            - The number of arguments is incorrect
+            - The string is empty
+            - The string contains forbidden characters
+        - Prints the Morse code conversion of the input string.
+    """
     try:
         if len(sys.argv) != 2:
             raise AssertionError("the arguments are bad")

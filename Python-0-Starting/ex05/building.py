@@ -52,9 +52,9 @@ def main():
     Behavior:
         - If more than one argument is provided, raises AssertionError.
         - If no argument is provided, prompts the user for input and reads
-         it from stdin.
+        it from stdin.
         - Otherwise, uses the first command-line argument as the string
-         to analyze.
+        to analyze.
     """
     try:
         if len(sys.argv) > 2:

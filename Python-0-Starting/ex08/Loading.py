@@ -3,6 +3,22 @@ from time import time
 
 
 def ft_tqdm(lst: range) -> None:
+    """
+    Generator that iterates over an iterable while showing a dynamic progress
+    bar in the terminal.
+
+    Args:
+        lst: The iterable to loop over.
+
+    Yields:
+        Each element of the iterable, updating a progress bar that shows the
+        percentage completed, number of iterations done, elapsed time,
+        estimated remaining time, and iterations per second.
+
+    Behavior:
+        - Updates the display every 0.1 seconds.
+        - Adjusts the loading bar to fit the terminal width dynamically.
+    """
     nb_elem = len(lst)
     term_width = get_terminal_size().columns
     done = 0
