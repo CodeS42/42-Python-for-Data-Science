@@ -5,8 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ft_package"
 version = "0.0.1"
-authors = [{name="CodeS42", email="CodeS42@42.fr"}]
+authors = [
+    {name="CodeS42"},
+    {email="CodeS42@42.fr"}
+]
 description = "A sample test package"
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/CodeS42/Python-for-Data-Science-/tree/main/Python-0-Starting/ex09/ft_package"
