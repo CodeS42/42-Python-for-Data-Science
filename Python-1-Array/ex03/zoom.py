@@ -38,7 +38,7 @@ def main():
         print(img)
         ft_zoom(img, 100, 500, 450, 850, 0, 1)
     except Exception as e:
-        print(f"Error: {e}")
+        print(e)
 
 
 if __name__ == "__main__":

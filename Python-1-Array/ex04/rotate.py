@@ -54,7 +54,7 @@ def main():
         zoomed_img = ft_zoom(img, 100, 500, 450, 850, 0, 1)
         ft_transpose(zoomed_img)
     except Exception as e:
-        print(f"Error: {e}")
+        print(e)
 
 
 if __name__ == "__main__":

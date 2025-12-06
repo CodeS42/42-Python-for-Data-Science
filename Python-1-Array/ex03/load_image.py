@@ -14,11 +14,11 @@ def ft_load(path: str) -> array:
     raised.
     """
     if not isinstance(path, str):
-        raise TypeError("Path must be a string.")
+        raise TypeError("TypeError: Path must be a string.")
     img = Image.open(path)
     format_img = img.format.upper()
     if not (format_img == "JPG" or format_img == "JPEG"):
-        raise ValueError("Unsupported format.")
+        raise ValueError("ValueError: Unsupported format.")
     img = img.convert("RGB")
 
     return array(img)

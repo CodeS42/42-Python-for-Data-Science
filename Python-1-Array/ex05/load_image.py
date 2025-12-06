@@ -1,34 +1,33 @@
 from PIL import Image
 from numpy import array
 
+
 def ft_load(path: str) -> array:
     """
-    Load an image from the given file path.
-    Convert it to RGB.
-    Prints
-        - The shape of the loaded image (height, width, channels).
-        - The 3D array
+    Load an image from a file and convert it to an RGB array.
 
-    Parameters
-        path: Path to the image file to load.
+    This function first checks that the provided path is a string and that the
+    image format is supported (JPG or JPEG). It then opens the file, converts
+    the image to RGB mode, prints its shape and its pixels, and returns it as
+    a 3D array.
 
-    Returns
-        The loaded image as a 3D array.
-
-    Raises
-        TypeError: If the provided path is not a string.
-        ValueError: If the image format is not JPG or JPEG.
+    If the path is invalid or the format is not allowed, an exception is
+    raised.
     """
-    if not isinstance(path, str):
-        raise TypeError("Path must be a string.")
-    img = Image.open(path)
-    format_img = img.format.upper()
-    if not (format_img == "JPG" or format_img == "JPEG"):
-        raise ValueError("Unsupported format.")
-    img = img.convert("RGB")
-    img_array = array(img)
+    try:
+        if not isinstance(path, str):
+            raise TypeError("TypeError: Path must be a string.")
+        img = Image.open(path)
+        format_img = img.format.upper()
+        if not (format_img == "JPG" or format_img == "JPEG"):
+            raise ValueError("ValueError: Unsupported format.")
+        img = img.convert("RGB")
+        img_array = array(img)
 
-    print(f"The shape of image is: {img_array.shape}")
-    print(img_array)
+        print(f"The shape of image is: {img_array.shape}")
+        print(img_array)
 
-    return img_array
+        return img_array
+    except Exception as e:
+        print(e)
+        return None
