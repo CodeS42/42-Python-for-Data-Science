@@ -1,135 +1,90 @@
+import numpy
+
+
 MIN_HEIGHT = 0.4
 MAX_HEIGHT = 2.75
 MIN_WEIGHT = 1
 MAX_WEIGHT = 450
 MIN_BMI = 5
 MAX_BMI = 200
-
 HEIGHT = 0
 WEIGHT = 1
 BMI = 2
 
-import numpy
 
-
-def is_valid_list(lst, data):
+def check_list(lst, data):
     """
+    Check that a list of numerical values is valid for
+    heights, weights, or BMI.
 
+    This function ensures that the list is not empty, that it contains only
+    numbers, and that all values are within realistic ranges depending on the
+    type of data.
+
+    It raises an exception if any of these conditions are not met.
     """
     if not lst:
-        print("Error: Lists cannot be empty.")
-        return False
+        raise ValueError("ValueError: Lists cannot be empty.")
     if not isinstance(lst, list):
-        print("Error: Heights, weights and BMI must be in lists.")
-        return False
+        raise TypeError("TypeError: Heights, weights and BMI must be in \
+lists.")
     for elem in lst:
         if not isinstance(elem, (int, float)):
-            print("Error: Lists must contain only integers or floats numbers.")
-            return False     
+            raise TypeError("TypeError: Lists must contain only integers \
+or floats numbers.")
         if data == HEIGHT and (elem < MIN_HEIGHT or elem > MAX_HEIGHT):
-            print("Error: Height is out of range.")
-            return False
+            raise ValueError("ValueError: Height is out of range.")
         if data == WEIGHT and (elem < MIN_WEIGHT or elem > MAX_WEIGHT):
-            print("Error: Weight is out of range.")
-            return False
-    return True
+            raise ValueError("ValueError: Weight is out of range.")
 
 
-def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
+def give_bmi(height: list[int | float], weight: list[int | float]) \
+        -> list[int | float]:
     """
+    Calculate the BMI for a list of heights and weights.
 
+    This function first checks that the input lists are valid and have the
+    same length.It then computes the BMI for each pair of height and weight.
+
+    If any BMI value is unrealistic, an exception is raised.
+    The result is returned as a list.
     """
-    if not (is_valid_list(height, HEIGHT) and is_valid_list(weight, WEIGHT)):
+    try:
+        check_list(height, HEIGHT)
+        check_list(weight, WEIGHT)
+        if not (len(weight) == len(height)):
+            raise ValueError("ValueError: The height and weight lists must \
+be the same length.")
+        heights = numpy.array(height)
+        weights = numpy.array(weight)
+        bmi = weights / (heights**2)
+        if numpy.any(bmi < MIN_BMI) or numpy.any(bmi > MAX_BMI):
+            raise ValueError("ValueError: BMI is not realistic.")
+        return bmi.tolist()
+    except Exception as e:
+        print(e)
         return None
-    if not (len(weight) == len(height)):
-        print("Error: The height and weight lists must be the same length.")
-        return None
-
-    heights = numpy.array(height)
-    weights = numpy.array(weight)
-    bmi = weights / (heights**2)
-    if numpy.any(bmi < MIN_BMI) or numpy.any(bmi > MAX_BMI):
-        print("Error: BMI is not realistic.")
-        return None
-    
-    return bmi.tolist()
 
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
     """
+    Compare each BMI value to a given limit and return a list of boolean
+    results.
 
+    This function checks that the BMI list is valid and that the limit
+    is an integer within the allowed range. Each BMI value is then
+    compared to the limit.
+
+    The result is returned as a list of True or False values.
     """
-    if not is_valid_list(bmi, BMI):
+    try:
+        check_list(bmi, BMI)
+        if not isinstance(limit, int):
+            raise TypeError("TypeError: The limit must be an integer.")
+        if limit < MIN_BMI or limit > MAX_BMI:
+            raise ValueError("ValueError: The limit is out of range.")
+        bool_array = numpy.array(bmi)
+        return (bool_array > limit).tolist()
+    except Exception as e:
+        print(e)
         return None
-    if not isinstance(limit, int):
-        print("Error: The limit must be an integer.")
-        return None
-    if limit < MIN_BMI or limit > MAX_BMI:
-        print("Error: The limit is out of range.")
-        return None
-
-    bool_array = numpy.array(bmi)
-
-    return (bool_array > limit).tolist()
-
-
-def main():
-    """
-
-    """
-    # Tests subject
-    height = [2.71, 1.15]
-    weight = [165.3, 38.4]
-    bmi = give_bmi(height, weight)
-    print(bmi, type(bmi))
-    print(apply_limit(bmi, 26))
-    print()
-
-    # Lists of different lengths
-    height = [2]
-    weight = [55, 25]
-    give_bmi(height, weight)
-    print()
-
-    # Not a list
-    height = "2"
-    weight = [55, 25]
-    give_bmi(height, weight)
-    print()
-
-    # Lists contain an unauthorized type
-    height = ['s', 1.5]
-    weight = [55, "test"]
-    give_bmi(height, weight)
-    print()
-
-    # Lists contain values out of range
-    height = [999, 1.5]
-    weight = [55, 0]
-    give_bmi(height, weight)
-    print()
-
-    # Empty lists
-    height = []
-    weight = []
-    give_bmi(height, weight)
-    print()
-
-    # Limit is not an integer
-    bmi = [20, 30.4]
-    apply_limit(bmi, "26")
-    print()
-
-    # BMI is not realistic
-    height = [2.75]
-    weight = [1]
-    give_bmi(height, weight)
-    print()
-
-    # Limit is out of range
-    bmi = [18.5]
-    apply_limit(bmi, 2)
-
-
-if __name__ == "__main__":
-    main()

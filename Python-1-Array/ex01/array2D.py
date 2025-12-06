@@ -1,87 +1,49 @@
 import numpy as np
 
 
-def is_valid_2d_array(family):
+def check_2d_array(family):
     """
+    Check that the input is a valid 2D list.
 
+    This function verifies that the structure is not empty, that each element
+    is a list, and that all sublists have the same length. It also ensures
+    that none of the inner lists are empty.
+
+    It raises an exception if any of these conditions are not met.
     """
     if not family:
-        print("Error: Array cannot be empty.")
-        return False
+        raise ValueError("ValueError: Array cannot be empty.")
     first_size = len(family[0])
     for lst in family:
         if not lst:
-            print("Error: Lists cannot be empty.")
-            return False
+            raise ValueError("ValueError: Lists cannot be empty.")
         if not isinstance(lst, list):
-            print("Error: Array must contain lists.")
-            return False
+            raise TypeError("TypeError: Array must contain lists.")
         if not len(lst) == first_size:
-            print("Error: Lists must have the same size.")
-            return False
-    return True
+            raise ValueError("ValueError: Lists must have the same size.")
 
 
 def slice_me(family: list, start: int, end: int) -> list:
     """
+    Slice a 2D list between two indices and return the selected rows.
 
+    This function first checks that the provided indices are integers and
+    that the input is a valid 2D list. It then extracts the rows between
+    the start and end indices and prints the shape of the original and
+    sliced arrays.
+
+    If an error occurs during validation or slicing, the function prints
+    the exception and returns None.
     """
-    if not (isinstance(start, int) and isinstance(end, int)):
-        print("Error: Start and end must be integers.")
+    try:
+        if not (isinstance(start, int) and isinstance(end, int)):
+            raise TypeError("TypeError: Start and end must be integers.")
+        check_2d_array(family)
+        family_array = np.array(family)
+        print(f"My shape is : {family_array.shape}")
+        new_family_array = np.array(family[start:end])
+        print(f"My new shape is : {new_family_array.shape}")
+        return family[start:end]
+    except Exception as e:
+        print(e)
         return None
-    if not is_valid_2d_array(family):
-        return None
-    family_array = np.array(family)
-    print(f"My shape is : {family_array.shape}")
-    new_family_array = np.array(family[start:end])
-    print(f"My new shape is : {new_family_array.shape}")
-
-    return family[start:end]
-
-
-def main():
-    """
-
-    """
-    # Tests subject
-    family = [[1.80, 78.4],
-            [2.15, 102.7],
-            [2.10, 98.5],
-            [1.88, 75.2]]
-    print(slice_me(family, 0, 2))
-    print(slice_me(family, 1, -2))
-    print()
-
-    # Start is not an integer
-    print(slice_me(family, "0", -2))
-    print()
-
-    # Empty lists
-    family = [[2],
-            [],
-            []]
-    slice_me(family, 0, 2)
-    print()
-
-    # Lists doesn't have the same size
-    family = [[2, 5],
-            [2],
-            [3, 6]]
-    slice_me(family, 0, 2)
-    print()
-
-    # Incorrect type in array
-    family = [[25],
-            2,
-            [3]]
-    slice_me(family, 0, 2)
-    print()
-
-    # Empty array
-    family = []
-    slice_me(family, 0, 2)
-    print()
-
-
-if __name__ == "__main__":
-    main()

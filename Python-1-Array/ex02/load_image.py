@@ -4,18 +4,14 @@ from numpy import array
 
 def ft_load(path: str) -> array:
     """
-    Load an image from the given file path.
-    Convert it to RGB.
+    Load an image from a file and convert it to an RGB array.
 
-    Parameters
-        path: Path to the image file to load.
+    This function first checks that the provided path is a string and that the
+    image format is supported (JPG or JPEG). It then opens the file, converts
+    the image to RGB mode, and returns it as a 3-dimensional array.
 
-    Returns
-        The loaded image as a 3D array.
-
-    Raises
-        TypeError: If the provided path is not a string.
-        ValueError: If the image format is not JPG or JPEG.
+    If the path is invalid or the format is not allowed, an exception is
+    raised.
     """
     try:
         if not isinstance(path, str):
@@ -31,30 +27,3 @@ def ft_load(path: str) -> array:
     except Exception as e:
         print("Error: ", e)
         return None
-
-
-def main():
-    """
-
-    """
-    # Test subject
-    print(ft_load("landscape.jpg"))
-    print()
-
-    # JPEG image
-    print(ft_load("animal.jpeg"))
-    print()
-
-    # Wrong type of image
-    print(ft_load("animal.j"))
-    print()
-
-    # Image doesn't exist
-    print(ft_load("test.jpeg"))
-    print()
-
-    # Wrong type of input
-    print(ft_load(1))
-
-if __name__ == "__main__":
-    main()
