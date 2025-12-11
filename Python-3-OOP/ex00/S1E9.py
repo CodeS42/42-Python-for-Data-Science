@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+# TypeError: Can't instantiate abstract class Character with abstract method <- TRY EXCEPT?
 
 
 class Character(ABC):
