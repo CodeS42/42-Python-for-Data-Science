@@ -20,15 +20,18 @@ def median(args):
 
 
 def quartile(args):
-    """Return the first (Q1) and third (Q3) quartiles of a list of numbers."""
+    """Compute the first and third quartiles of a list."""
     sorted_args = sorted(args)
-    nb_args = len(sorted_args)
-    q1 = float(sorted_args[(nb_args // 2) - 1])
-    if nb_args % 2 == 0:
-        q3 = float(sorted_args[nb_args // 2])
+    len_args = len(sorted_args)
+    q1_i = len_args // 4
+    q3_i = len_args * 3 // 4
+    if len_args % 4 == 0:
+        q1 = (sorted_args[q1_i - 1] + sorted_args[q1_i]) / 2
+        q3 = (sorted_args[q3_i - 1] + sorted_args[q3_i]) / 2
     else:
-        q3 = float(sorted_args[(nb_args // 2) + 1])
-    return [q1, q3]
+        q1 = sorted_args[q1_i]
+        q3 = sorted_args[q3_i]
+    return [float(q1), float(q3)]
 
 
 def var(args):

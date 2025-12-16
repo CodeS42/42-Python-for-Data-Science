@@ -14,7 +14,7 @@ def callLimit(limit: int):
             when the call limit is exceeded."""
             nonlocal count
             if count < limit:
-                function()
+                function(*args, **Any)
             else:
                 print(f"Error: {function} call too many times")
             count += 1
